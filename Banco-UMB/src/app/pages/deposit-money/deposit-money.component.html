@@ -1,0 +1,24 @@
+<div class="container d-flex justify-content-center">
+  <form [formGroup]="miFormulario" (ngSubmit)="deposit()" class="mt-5" style="width: 40rem;">
+    <div class="form-group mb-3">
+      <h2 class="text-info text-center fw-bold mb-3">Ingresar</h2>
+      <label class="my-2"><i class="fa-solid fa-dollar-sign text-info mx-1"></i>Valor a depositar</label>
+      <input type="number" class="form-control" placeholder="Ingrese el valor a depositar"
+        formControlName="depositValue">
+      <div class="form-text text-danger" *ngIf="depositField?.invalid && depositField?.touched">
+        <div *ngIf="depositField?.errors?.['required']">
+          Favor diligenciar el valor a depositar
+        </div>
+        <div *ngIf="depositField?.errors?.['min']">
+          No se aceptan números negativos
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-info" [disabled]="!miFormulario.valid">
+      Depositar
+    </button>
+    <div class="mt-4">
+      El valor disponible en su cuenta es de {{getBalanceAccount() | number}}
+    </div>
+  </form>
+</div>
