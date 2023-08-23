@@ -10,8 +10,8 @@ export const messagesSwalFire = {
     icon: "error",
   },
   correctRegister: {
-    title: 'Usuario registrado',
-    text: 'Usuario registrado exitosamente',
+    title: 'Carga exitosa',
+    text: 'Video cargado correctamente',
     icon: "success"
   },
   numberAccountNotExist: {

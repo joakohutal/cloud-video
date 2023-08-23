@@ -5,10 +5,6 @@ export interface IUser {
   fullName: string,
   email: string,
   rol: string,
-  accountBalance: number,
-  numberAccountBalance: number,
-  friends: IUser[],
-  transactions: ITransaction[]
 }
 
 export interface ITransaction {

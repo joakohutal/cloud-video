@@ -1,5 +1,7 @@
-import { Component, OnInit, ElementRef, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, ChangeDetectorRef, Inject} from '@angular/core';
 import { FileService } from 'src/app/core/services/file.service';
+import { IAuthRepository } from 'src/app/domain/repository/auth.repository';
+import { messagesSwalFire } from '../../core/constants/swalFire';
 
 @Component({
   selector: 'app-file-upload',
@@ -16,6 +18,7 @@ export class FileUploadComponent implements OnInit {
     private el: ElementRef, 
     private renderer: Renderer2,
     private cd: ChangeDetectorRef,
+    @Inject('authRepository') private authService: IAuthRepository
     ) {}  // Inyectamos ChangeDetectorRef
   
   ngOnInit() {}
@@ -41,20 +44,15 @@ export class FileUploadComponent implements OnInit {
             },
             () => {
                 console.log('Upload completed.');
-                // Mostrar el modal de éxito
-                this.showModal('successModal');
                 // Reiniciar la barra de progreso
                 this.progress = 0;
+                this.authService.setMessage(messagesSwalFire.correctRegister);
             }
         );
     } else {
         console.error('No file selected.');
     }
   }
-  showModal(modalId: string): void {
-    const modal = this.el.nativeElement.querySelector(`#${modalId}`);
-    const event = new Event('click');
-    modal.dispatchEvent(event);
-}
+
   
 }

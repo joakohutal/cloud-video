@@ -8,10 +8,6 @@ export const arrayInfoUsers: IUser[] = [
     fullName: 'hilca alvarez',
     email: 'hilky@gmail.com',
     rol: 'practicante',
-    numberAccountBalance: 123456,
-    accountBalance: 500000,
-    friends: [],
-    transactions: []
   },
   {
     id: 1,
@@ -20,10 +16,6 @@ export const arrayInfoUsers: IUser[] = [
     fullName: 'alex macleod',
     email: 'alex@gmail.com',
     rol: 'web developer',
-    numberAccountBalance: 111111,
-    accountBalance: 1000000,
-    friends: [],
-    transactions: []
   },
   {
     id: 2,
@@ -32,9 +24,5 @@ export const arrayInfoUsers: IUser[] = [
     fullName: 'Joaquin Hurtado',
     email: 'Jhurtado@gmail.com',
     rol: 'web developer',
-    numberAccountBalance: 111111,
-    accountBalance: 1000000,
-    friends: [],
-    transactions: []
   }
 ]

@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { IAuthRepository } from 'src/app/domain/repository/auth.repository';
 import { Router } from '@angular/router';
 import { IUser } from '../../auth/interfaces/auth.interface';
-import { AtmService } from '../../core/services/atm.service';
 import { ILocalSRepository } from '../../domain/repository/localS.repository';
 
 @Component({
@@ -15,8 +14,7 @@ export class TopbarComponent implements OnInit {
 
   constructor(@Inject('authRepository') private authService: IAuthRepository,
     @Inject('localSRepository') private localStorageService: ILocalSRepository,
-    private router: Router,
-    private atmService: AtmService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getUserInformation();
