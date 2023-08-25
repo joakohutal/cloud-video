@@ -109,13 +109,45 @@ app.get('/video/:filename', async (req, res) => {
         const directoryClient = shareClient.getDirectoryClient('');
         const fileClient = directoryClient.getFileClient(filename);
 
-        const downloadResponse = await fileClient.download(0);
-        const readStream = downloadResponse.readableStreamBody;
+        const fileProperties = await fileClient.getProperties();
+        const fileSize = parseInt(fileProperties.contentLength, 10);
 
-        if (readStream) {
-            readStream.pipe(res);
+        const range = req.headers.range;
+        if (!range) {
+            const downloadResponse = await fileClient.download(0);
+            const readStream = downloadResponse.readableStreamBody;
+            
+            if (readStream) {
+                res.writeHead(200, {
+                    'Content-Length': fileSize,
+                    'Content-Type': 'video/mp4',
+                });
+                readStream.pipe(res);
+            } else {
+                res.status(404).send('File not found.');
+            }
         } else {
-            res.status(404).send('File not found.');
+            const parts = range.replace(/bytes=/, "").split("-");
+            const start = parseInt(parts[0], 10);
+            const end = parts[1] 
+                ? parseInt(parts[1], 10)
+                : fileSize-1;
+
+            const chunksize = (end-start)+1;
+            const downloadResponse = await fileClient.download(start, chunksize);
+            const readStream = downloadResponse.readableStreamBody;
+
+            if (readStream) {
+                res.writeHead(206, {
+                    'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+                    'Accept-Ranges': 'bytes',
+                    'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4',
+                });
+                readStream.pipe(res);
+            } else {
+                res.status(404).send('File not found.');
+            }
         }
     } catch (error) {
         console.error('Error fetching video:', error.message);
@@ -146,6 +178,22 @@ function emitProgress(clientId, progress) {
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
+});
+
+app.delete('/video/:filename', async (req, res) => {
+    try {
+        const filename = req.params.filename;
+        const shareClient = serviceClient.getShareClient(SHARE_NAME);
+        const directoryClient = shareClient.getDirectoryClient('');
+        const fileClient = directoryClient.getFileClient(filename);
+
+        await fileClient.delete();
+        
+        res.status(200).send('File deleted successfully.');
+    } catch (error) {
+        console.error('Error deleting video:', error.message);
+        res.status(500).send('Failed to delete video.');
+    }
 });
 
 app.listen(3000, () => {

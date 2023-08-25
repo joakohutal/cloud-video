@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     const userFind = this.authService.validation(username, password);
     if (userFind) {
       this.localStorageService.setLocalStorage('userAccount', userFind)
-      this.router.navigateByUrl('/pages/upload');
+      this.router.navigateByUrl('/pages/videos');
     } else {
       this.authService.setMessage(messagesSwalFire.accessDenied);
     }

@@ -20,7 +20,7 @@ export const arrayInfoUsers: IUser[] = [
   {
     id: 2,
     username: 'Joaquin',
-    password: '1234567',
+    password: 'JHurtado2022',
     fullName: 'Joaquin Hurtado',
     email: 'Jhurtado@gmail.com',
     rol: 'web developer',

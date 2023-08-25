@@ -10,6 +10,7 @@ import { AtmModule } from '../core/atm.module';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VideosComponent } from './videos/videos.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -22,7 +23,8 @@ import { VideosComponent } from './videos/videos.component';
     SharedModule,
     ReactiveFormsModule,
     AtmModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AuthProvider, localSProvider]
 })

@@ -1,0 +1,27 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div style="width: 40rem;">
+    <div class="form-group mb-3">
+      <input type="file" class="form-control" (change)="onFileSelected($event)" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="fileName">Nombre del archivo:</label>
+      <input type="text" class="form-control" [(ngModel)]="fileName" id="fileName"
+        placeholder="Introduce el nombre del archivo" required="">
+      <label for="category">Categoría:</label>
+      <select class="form-control" [(ngModel)]="selectedCategory" id="category" required>
+        <option value="Programacion">Programacion</option>
+        <option value="Redes">Redes</option>
+        <option value="TI">TI</option>
+        <!-- ... otras categorías ... -->
+      </select>
+    </div>
+    <!-- Barra de progreso -->
+    <div class="progress mb-3">
+      <div class="progress-bar" role="progressbar" [style.width]="progress + '%'" aria-valuenow="progress"
+        aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-3" (click)="upload()">Upload</button>
+  </div>
+</div>

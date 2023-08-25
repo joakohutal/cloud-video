@@ -1,0 +1,29 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Selecciona una categoría
+    </button>
+    <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+        <a class="dropdown-item" href="#"
+            (click)="filterByCategory('Programacion'); $event.preventDefault()">Programacion</a>
+        <a class="dropdown-item" href="#" (click)="filterByCategory('Redes'); $event.preventDefault()">Redes</a>
+        <a class="dropdown-item" href="#" (click)="filterByCategory('TI'); $event.preventDefault()">TI</a>
+        <!-- ... más categorías aquí -->
+        <a class="dropdown-item" href="#" (click)="filterByCategory(''); $event.preventDefault()">Mostrar todos</a>
+    </div>
+</div>
+<div class="video-list">
+    <div class="video-item" *ngFor="let video of filteredVideos">
+        <span (click)="playVideo(video)" class="video-playable">
+            <span class="video-icon">🎥</span>
+            <!-- Este es un emoji de video, pero podrías reemplazarlo con un ícono real -->
+            {{ video }}
+        </span>
+        <button (click)="deleteVideo(video, $event)">Eliminar</button>
+    </div>
+</div>
+
+<video *ngIf="selectedVideoUrl" controls width="320" height="240">
+    <source [src]="selectedVideoUrl" type="video/mp4">
+    Your browser does not support the video tag.
+</video>

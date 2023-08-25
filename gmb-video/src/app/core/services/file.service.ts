@@ -49,4 +49,9 @@ getVideos(): Observable<string[]> {
   const videosUrl = 'http://localhost:3000/videos';
   return this.http.get<string[]>(videosUrl);
 }
+
+deleteVideo(videoName: string): Observable<void> {
+  const url = `http://localhost:3000/video/${videoName}`;
+  return this.http.delete<void>(url);
+}
 }

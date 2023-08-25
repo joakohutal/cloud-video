@@ -1,0 +1,20 @@
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.video-item {
+    flex: 0 1 calc(33.3333% - 20px); /* Esto crea una cuadrícula de 3 columnas */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.video-icon {
+    font-size: 40px;
+    margin-right: 10px;
+}

@@ -10,17 +10,17 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'upload',
-        component:FileUploadComponent
-      },
-      {
         path:'videos',
         component:VideosComponent
 
       },
       {
+        path: 'upload',
+        component:FileUploadComponent
+      },
+      {
         path: '**',
-        redirectTo: 'upload'
+        redirectTo: 'videos'
       }
     ]
   }
