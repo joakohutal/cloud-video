@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { VideosComponent } from './videos/videos.component';
+import { HomeComponent } from './home-component/home.component';
+import { FileUploadComponent } from './file-upload-component/file-upload.component';
+import { VideosComponent } from './video-component/videos.component';
 
 const routes: Routes = [
   {

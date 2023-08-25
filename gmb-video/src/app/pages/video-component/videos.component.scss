@@ -1,0 +1,33 @@
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.video-item {
+    flex: 0 1 calc(33.3333% - 20px); /* Esto crea una cuadrícula de 3 columnas */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.video-icon {
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+.video-item {
+    display: flex;
+    align-items: center; /* Esto asegura que los ítems estén alineados verticalmente en el centro */
+  }
+  
+  .video-playable {
+    flex-grow: 1; /* Esto hace que el nombre del video tome todo el espacio disponible, empujando el botón hacia la derecha */
+  }
+  
+  .btn-danger {
+    margin-left: 10px; /* Esto añade un margen a la izquierda del botón */
+  }

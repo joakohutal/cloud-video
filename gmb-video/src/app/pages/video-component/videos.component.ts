@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class VideosComponent implements OnInit {
   ngOnInit(): void {
     this.getVideos();
   }
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+  @ViewChild('videoSource', { static: false }) videoSource!: ElementRef<HTMLVideoElement>;
 
   selectedVideo: string | null = null;
   selectedVideoUrl: string | null = null;
@@ -63,5 +65,21 @@ export class VideosComponent implements OnInit {
       this.filteredVideos = [...this.videos];
     }
   }
+
+setVideoUrl(videoName: string) {
+    // Detiene y restablece cualquier video anterior
+    if (this.videoPlayer && this.videoPlayer.nativeElement) {
+        this.videoPlayer.nativeElement.pause();
+        this.videoPlayer.nativeElement.currentTime = 0;
+    }
+
+    this.selectedVideoUrl = this.fileService.getVideoUrl(videoName);
+
+    // Actualiza el elemento source y recarga el video
+    if (this.videoSource && this.videoSource.nativeElement) {
+        this.videoSource.nativeElement.src = this.selectedVideoUrl;
+        this.videoPlayer.nativeElement.load();
+    }
+}
 
 }

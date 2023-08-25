@@ -42,7 +42,7 @@ export class FileUploadComponent implements OnInit {
 }
 
   upload() {
-    if (this.selectedFile) {
+    if (this.selectedFile && this.fileName && this.selectedCategory) {
 
       const formData: FormData = new FormData();
       formData.append('video', this.selectedFile, this.selectedFile.name);
@@ -74,11 +74,14 @@ export class FileUploadComponent implements OnInit {
             () => {
                 console.log('Upload completed.');
                 // Reiniciar la barra de progreso
-                this.progress = 0;
                 this.authService.setMessage(messagesSwalFire.correctRegister);
+                this.progress = 0;
+                this.fileName = '';
+                this.selectedCategory =''
             }
         );
     } else {
+      this.authService.setMessage(messagesSwalFire.formValid);
         console.error('No file selected.');
     }
   }

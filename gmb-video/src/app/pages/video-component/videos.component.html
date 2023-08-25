@@ -14,16 +14,29 @@
 </div>
 <div class="video-list">
     <div class="video-item" *ngFor="let video of filteredVideos">
-        <span (click)="playVideo(video)" class="video-playable">
+        <span data-toggle="modal" data-target="#videoModal" (click)="setVideoUrl(video)" class="video-playable">
             <span class="video-icon">🎥</span>
-            <!-- Este es un emoji de video, pero podrías reemplazarlo con un ícono real -->
             {{ video }}
         </span>
-        <button (click)="deleteVideo(video, $event)">Eliminar</button>
+        <button class="btn btn-danger" (click)="deleteVideo(video, $event)">
+            <i class="fas fa-trash-alt"></i>
+        </button>
     </div>
 </div>
 
-<video *ngIf="selectedVideoUrl" controls width="320" height="240">
-    <source [src]="selectedVideoUrl" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+<!-- Modal para reproducir el video -->
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <video #videoPlayer *ngIf="selectedVideoUrl" controls class="w-100">
+                    <source #videoSource [src]="selectedVideoUrl" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

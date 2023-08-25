@@ -14,25 +14,9 @@ export const messagesSwalFire = {
     text: 'Video cargado correctamente',
     icon: "success"
   },
-  numberAccountNotExist: {
-    title: 'Número de cuenta incorrecta',
-    text: 'No existe un usuario con ese número de cuenta',
-    icon: "warning"
-  },
-  transferHighterThanBalance: {
-    title: 'Valor a transferir mayor que el disponible en cuenta',
-    icon: "error"
-  },
-  withdrawalHighterThanBalance: {
-    title: 'Valor a retirar mayor que el disponible en cuenta',
-    icon: "error"
-  },
-  successfulTransaction: {
-    title: 'Transferencia exitosa',
-    icon: "success"
-  },
-successfulDrawal: {
-  title: 'Retiro de efectivo exitoso',
-  icon: "success"
-}
+  formValid: {
+    title: 'Error...',
+    text: 'Por favor ingresar todos los datos !',
+    icon: "error",
+  }
 };
