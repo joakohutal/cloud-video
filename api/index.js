@@ -2,16 +2,21 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 const { ShareServiceClient, StorageSharedKeyCredential } = require('@azure/storage-file-share');
+require('dotenv').config();
 
 const app = express();
 
-const AZURE_ACCOUNT_NAME = 'backupsgmb';
-const AZURE_ACCOUNT_KEY = 'saPY11CirPjaIzURE2Wxwhvr6a1xCaKxadEXbLyD3xsGB1ziMsP5lhE+S6ZRbsdYfPOgP1hYeYUUY65a8GUWXw==';
-const SHARE_NAME = 'hdm/videos';
 
-const sharedKeyCredential = new StorageSharedKeyCredential(AZURE_ACCOUNT_NAME, AZURE_ACCOUNT_KEY);
+
+const azure_name = process.env.AZURE_ACCOUNT_NAME;
+const azure_key = process.env.AZURE_ACCOUNT_KEY;
+const share_name = process.env.SHARE_NAME;
+const origin_cors = process.env.CORS_ORIGIN;
+const port = process.env.SERVER_PORT;
+
+const sharedKeyCredential = new StorageSharedKeyCredential(azure_name, azure_key);
 const serviceClient = new ShareServiceClient(
-  `https://${AZURE_ACCOUNT_NAME}.file.core.windows.net`,
+  `https://${azure_name}.file.core.windows.net`,
   sharedKeyCredential
 );
 
@@ -21,7 +26,7 @@ const MAX_RETRIES = 3;
 const clients = {};
 
 app.use(cors({
-    origin: 'http://localhost:4200'
+    origin: origin_cors
 }));
 
 app.post('/upload', upload.single('video'), async (req, res) => {
@@ -32,7 +37,7 @@ app.post('/upload', upload.single('video'), async (req, res) => {
         return res.status(400).send('No file uploaded.');
     }
 
-    const shareClient = serviceClient.getShareClient(SHARE_NAME);
+    const shareClient = serviceClient.getShareClient(share_name);
     const directoryClient = shareClient.getDirectoryClient('');
     const fileClient = directoryClient.getFileClient(req.file.originalname);
 
@@ -87,7 +92,7 @@ async function uploadSegment(fileClient, segment, offset, segmentLength) {
 
 app.get('/videos', async (req, res) => {
     try {
-        const shareClient = serviceClient.getShareClient(SHARE_NAME);
+        const shareClient = serviceClient.getShareClient(share_name);
         const directoryClient = shareClient.getDirectoryClient('');
         const files = [];
         for await (const file of directoryClient.listFilesAndDirectories()) {
@@ -105,7 +110,7 @@ app.get('/videos', async (req, res) => {
 app.get('/video/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const shareClient = serviceClient.getShareClient(SHARE_NAME);
+        const shareClient = serviceClient.getShareClient(share_name);
         const directoryClient = shareClient.getDirectoryClient('');
         const fileClient = directoryClient.getFileClient(filename);
 
@@ -183,7 +188,7 @@ app.use((err, req, res, next) => {
 app.delete('/video/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const shareClient = serviceClient.getShareClient(SHARE_NAME);
+        const shareClient = serviceClient.getShareClient(share_name);
         const directoryClient = shareClient.getDirectoryClient('');
         const fileClient = directoryClient.getFileClient(filename);
 
@@ -196,6 +201,6 @@ app.delete('/video/:filename', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
+app.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}`);
 });

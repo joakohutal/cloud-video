@@ -16,7 +16,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ValidationGuard,AuthProvider,localSProvider],//Repasar !!
+  providers: [
+    ValidationGuard,
+    AuthProvider,
+    localSProvider
+  ],//Repasar !!
   bootstrap: [AppComponent]
 })
 export class AppModule { }

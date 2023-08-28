@@ -1,6 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { IAuthRepository } from 'src/app/domain/repository/auth.repository';
-import { Router } from '@angular/router';
 import { IUser } from '../../auth/interfaces/auth.interface';
 import { ILocalSRepository } from '../../domain/repository/localS.repository';
 
@@ -12,17 +10,12 @@ import { ILocalSRepository } from '../../domain/repository/localS.repository';
 export class TopbarComponent implements OnInit {
   user!: IUser;
 
-  constructor(@Inject('authRepository') private authService: IAuthRepository,
+  constructor(
     @Inject('localSRepository') private localStorageService: ILocalSRepository,
-    private router: Router) { }
+    ) { }
 
   ngOnInit(): void {
     this.getUserInformation();
-  }
-
-  logout(): void {
-    this.router.navigateByUrl('/auth');
-    this.authService.logout();
   }
 
   getUserInformation(): void {

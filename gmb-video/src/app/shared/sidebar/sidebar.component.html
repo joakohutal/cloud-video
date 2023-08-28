@@ -1,7 +1,7 @@
 <nav class="nav flex-column">
   <!-- Logo del sitio -->
   <a class="nav-link text-bg-dark mb-4" [routerLink]="['/pages/videos']">
-    <img src="../../../assets/images/MonteblancoLogo.png" height="80" alt="Logo Monteblanco">
+    <img src="../../../assets/images/MonteblancoLogo.png" height="120" alt="Logo Monteblanco">
   </a>
 
   <!-- Link para galería de videos -->
@@ -13,4 +13,9 @@
   <a class="nav-link text-dark mb-4" [routerLink]="['/pages/upload']" aria-label="Subir video">
     <span class="fa fa-angles-up mx-2"></span> Subir video
   </a>
+
+    <!-- Link para subir video -->
+    <a class="nav-link text-dark mb-4" (click)="logout()" [routerLink]="['/auth']" aria-label="Subir video">
+      <span class="fa fa-sign-out mx-2"></span> Salir
+    </a>
 </nav>

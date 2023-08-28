@@ -6,8 +6,3 @@ export interface IUser {
   email: string,
   rol: string,
 }
-
-export interface ITransaction {
-  transferAccount: number,
-  transferValue: number
-}
