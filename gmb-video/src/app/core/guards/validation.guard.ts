@@ -6,7 +6,9 @@ import { IAuthRepository } from 'src/app/domain/repository/auth.repository';
   providedIn: 'root'
 })
 export class ValidationGuard implements CanActivate {
-  constructor(@Inject('authRepository') private authService: IAuthRepository) { }
+  constructor(
+    @Inject('authRepository') private authService: IAuthRepository
+    ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return this.authService.verifyAuthentication();

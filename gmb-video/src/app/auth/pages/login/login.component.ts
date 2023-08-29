@@ -13,7 +13,10 @@ import { messagesSwalFire } from '../../../core/constants/swalFire';
 export class LoginComponent implements OnInit {
   miFormulario!: FormGroup;
 
-  constructor(@Inject('authRepository') private authService: IAuthRepository, private fb: FormBuilder, private router: Router,
+  constructor(
+    @Inject('authRepository') private authService: IAuthRepository, 
+    private fb: FormBuilder, 
+    private router: Router,
     @Inject('localSRepository') private localStorageService: ILocalSRepository) { }
 
   ngOnInit(): void {

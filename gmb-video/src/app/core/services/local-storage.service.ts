@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ILocalSRepository } from '../../domain/repository/localS.repository';
-import { IUser } from '../../auth/interfaces/auth.interface';
 
 @Injectable()
 export class LocalStorageService implements ILocalSRepository {

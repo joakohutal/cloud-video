@@ -7,22 +7,21 @@ import { Observable } from 'rxjs';
 })
 export class FileService {
 
-  private apiUrl = 'http://localhost:3000/upload';
-  
+  private baseUrl = 'http://localhost:3000';
   constructor(private http: HttpClient) { }
 
   uploadVideo(file: File): Observable<number> {
     const formData: FormData = new FormData();
     formData.append('video', file, file.name);
 
-    const clientId = new Date().getTime().toString();  // This is a simple client ID generator. In a real-world scenario, you might want a more complex ID.
+    const clientId = new Date().getTime().toString(); 
     const headers = new HttpHeaders({
         'X-Client-ID': clientId
     });
 
     return new Observable(observer => {
         // Start listening to SSE events
-        const eventSource = new EventSource(`http://localhost:3000/progress/${clientId}`);
+        const eventSource = new EventSource(`${this.baseUrl}/progress/${clientId}`);
 
         eventSource.onmessage = (event) => {
             const progress = parseFloat(event.data);
@@ -34,7 +33,7 @@ export class FileService {
         };
 
         // Start the upload
-        this.http.post(this.apiUrl, formData, { headers, responseType: 'text' }).subscribe(
+        this.http.post(`${this.baseUrl}/upload`, formData, { headers, responseType: 'text' }).subscribe(
             () => {},
             error => observer.error(error)
         );
@@ -42,16 +41,16 @@ export class FileService {
 }
 
 getVideoUrl(videoName: string): string {
-  return `http://localhost:3000/video/${videoName}`; // Ajuste en la ruta
+  return `${this.baseUrl}/video/${videoName}`; 
 }
 
 getVideos(): Observable<string[]> {
-  const videosUrl = 'http://localhost:3000/videos';
+  const videosUrl =`${this.baseUrl}/videos`;
   return this.http.get<string[]>(videosUrl);
 }
 
 deleteVideo(videoName: string): Observable<void> {
-  const url = `http://localhost:3000/video/${videoName}`;
+  const url = `${this.baseUrl}/video/${videoName}`;
   return this.http.delete<void>(url);
 }
 }
